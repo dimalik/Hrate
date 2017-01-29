@@ -1,0 +1,17 @@
+exportPattern("^[[:alpha:]]+")
+import(ggplot2)
+import(scales)
+exportMethods(
+    "Converge",
+    "ConvergeCriterion",
+    "initialize",
+    "plot",
+    "setEveryWord",
+    "setMaxLength",
+    "setStepSize",
+    "setText",
+    "show" 
+)
+exportClasses(
+    "ConvergeEntropy" 
+)

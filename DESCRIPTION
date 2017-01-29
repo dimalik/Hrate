@@ -1,0 +1,10 @@
+Package: EntropyEstimator
+Type: Package
+Title: Implements LZ estimator for texts.
+Version: 0.1
+Date: 2017-01-28
+Author: Christian Bentz [aut, cre],
+        Dimitris Alikaniotis [aut, cre]
+Maintainer: Dimitris Alikaniotis <da352@cam.ac.uk>
+Description: Implements the LZ algorithms described in ...
+License: MIT?
