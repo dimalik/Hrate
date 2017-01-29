@@ -1,9 +1,12 @@
-## setGeneric("show")
 setMethod("show",
          signature(object = "ConvergeEntropy"),
          function(object) {
-             cat(object@max.length, "\n")
-             cat("GPA:", object@every.word, "\n")
+             if (!length(object@min.criterion))
+                 warning("ConvergeEntropy object has not converged.")
+             cat("ConvergeEntropy object with parameters: \n")
+             cat(" step.size: ", object@step.size , "\n")
+             cat("max.length: ", object@max.length, "\n")
+             cat("every.word: ", object@every.word, "\n")
          }
 )
 
