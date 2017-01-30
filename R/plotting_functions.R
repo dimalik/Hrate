@@ -1,4 +1,4 @@
-plotConvergence <- function(x) {
+plot.convergence <- function(x) {
     dat <- x@convergence
     criterion <- x@min.criterion
     
@@ -15,7 +15,7 @@ plotConvergence <- function(x) {
     frame_conv
 }
 
-plotCriterion <- function(x) {
+plot.criterion <- function(x) {
     dat <- x@convergence.criterion
     frame_sd <- ggplot(dat, aes(x = Corpus.Size, y = SD)) +
         geom_line(size = 0.5, alpha = 1) +

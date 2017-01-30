@@ -1,3 +1,6 @@
+## 1. Generic Functions
+## 1a. Overrides
+
 setMethod("show",
          signature(object = "ConvergeEntropy"),
          function(object) {
@@ -8,15 +11,62 @@ setMethod("show",
              cat("max.length: ", object@max.length, "\n")
              cat("every.word: ", object@every.word, "\n")
          }
-)
+         )
 
-
+setMethod("summary",
+          signature(object = "ConvergeEntropy"),
+          function(object) {
+              if (!length(object@min.criterion))
+                  stop("ConvergeEntropy object has not converged.")
+              cat("ConvergeEntropy object with parameters: \n")
+              cat(" step.size: ", object@step.size , "\n")
+              cat("max.length: ", object@max.length, "\n")
+              cat("every.word: ", object@every.word, "\n")
+              cat("-----------------------------------\n")
+              cat("Size of the corpus: ", length(object@text), "\n")
+              cat("Number of words where SD was minimized: ",
+                  object@min.criterion, "\n")
+          })
+## don't really think this is needed
 setGeneric('plot')
 setMethod('plot',
           signature(x='ConvergeEntropy', y='missing'),
           definition = function(x, y, ...) {
-              plotConvergence(x, ...)
+              plot.convergence(x, ...)
           })
+
+## 1b. Generic of internal functions
+setGeneric(name = "setText",
+           def  = function(object, text) {
+               standardGeneric("setText")
+           })
+
+setGeneric(name = "setStepSize",
+           def  = function(object, step.size) {
+               standardGeneric("setStepSize")
+           })
+
+setGeneric(name = "ConvergeCriterion",
+           def  = function(object, downsampling.rate) {
+               standardGeneric("ConvergeCriterion")
+           })
+
+setGeneric(name = "setMaxLength",
+           def  = function(object, max.length) {
+               standardGeneric("setMaxLength")
+           })
+
+setGeneric(name = "setEveryWord",
+           def  = function(object, every.word) {
+               standardGeneric("setEveryWord")
+           })
+
+setGeneric(name = "Converge",
+           def  = function(object, verbose) {
+               standardGeneric("Converge")
+           })
+
+## 2. Init method
 
 setMethod(f          = "initialize",
           signature  = "ConvergeEntropy",
@@ -27,81 +77,56 @@ setMethod(f          = "initialize",
               .Object@max.length <- max.length
               .Object@every.word <- every.word
               .Object@cache.obj  <- new.env(TRUE, emptyenv())
-              validObject(.Object)
-              return(.Object)
+              if (length(.Object@text) < .Object@max.length) {
+                  warning(paste("The size of the text is smaller than the",
+                                "maximum length. Setting max.length to the",
+                                "size of the text"))
+                  .Object@max.length <- length(.Object@text)
+              }
+              if (validObject(.Object))
+                  return(.Object)
           })
 
-setGeneric(name = "setText",
-           def  = function(object, text) {
-               standardGeneric("setText")
-           })
+## 3. Custom methods
 
 setMethod(f          = "setText",
           signature  = "ConvergeEntropy",
           definition = function(object, text) {
               object@text <- text
-              validObject(object)
-              return(object)
+              if (validObject(object))
+                  return(object)
           })
-
-setGeneric(name = "setStepSize",
-           def  = function(object, step.size) {
-               standardGeneric("setStepSize")
-           })
-
 setMethod(f          = "setStepSize",
           signature  = "ConvergeEntropy",
           definition = function(object, step.size) {
               object@step.size <- step.size
-              validObject(object)
-              return(object)
+              if (validObject(object))
+                  return(object)
           })
-
-setGeneric(name = "setMaxLength",
-           def  = function(object, max.length) {
-               standardGeneric("setMaxLength")
-           })
-
 
 setMethod(f          = "setMaxLength",
           signature  = "ConvergeEntropy",
           definition = function(object, max.length) {
               object@max.length <- max.length
-              validObject(object)
-              return(object)
+              if (validObject(object))
+                  return(object)
           })
-
-
-setGeneric(name = "setEveryWord",
-           def  = function(object, every.word) {
-               standardGeneric("setEveryWord")
-           })
 
 setMethod(f          = "setEveryWord",
           signature  = "ConvergeEntropy",
           definition = function(object, every.word) {
               object@every.word <- every.word
-              validObject(object)
-              return(object)
+              if (validObject(object))
+                  return(object)
           })
-
-setGeneric(name = "Converge",
-           def  = function(object) {
-               standardGeneric("Converge")
-           })
 
 setMethod(f          = "Converge",
           signature  = "ConvergeEntropy",
-          definition = function(object) {
+          definition = function(object, verbose) {
               return(.Converge(object@text, object@step.size,
                                object@max.length, object@cache.obj,
-                               object@every.word))
+                               object@every.word, verbose))
           })
-
-setGeneric(name = "ConvergeCriterion",
-           def  = function(object, downsampling.rate) {
-               standardGeneric("ConvergeCriterion")
-           })
 
 setMethod(f          = "ConvergeCriterion",
           signature  = "ConvergeEntropy",

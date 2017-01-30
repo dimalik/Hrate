@@ -1,4 +1,5 @@
-.Converge <- function(text, step.size, max.length, cache.obj, every.word) {
+.Converge <- function(text, step.size, max.length, cache.obj, every.word,
+                      verbose) {
     ## Get entropy estimates over variable sized chunks of text
     ##
     ## Args:
@@ -11,14 +12,19 @@
     ##   (reduces computation time).
     ##   cache.obj (environment): provides a HashMap-like
     ##   environment to save previous results.
+    ##   verbose (bool): Whether or not to print debugging information
     ##
     ## Returns:
     ##   data.frame: The entropy estimates over different chunks of
     ##   text
     H.i.vec <- c()
     result <- list()
-    iter <- 1
+    iter <- 0
     for (n in seq(step.size, max.length, step.size)) {
+        iter <- iter + 1
+        if (verbose)
+            message(sprintf("%.2f%%: Setting size of corpus at %i words",
+                            iter / (max.length / step.size) * 100, n))
         est <- GetSingleEstimate(text       = text,
                                  max.length = n,
                                  every.word = every.word,
@@ -26,7 +32,6 @@
         H.i.vec <- c(H.i.vec, est)                  
         H.est <- sum(H.i.vec) / (round(n / every.word, digits = 0))
         result[[iter]] <- c(n, H.est)
-        iter <- iter + 1
     }
     df <- data.frame(t(sapply(result, c)))
     colnames(df) <- c("Corpus.Size", "Entropy")
