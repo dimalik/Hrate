@@ -1,3 +1,56 @@
+.GetSingleEstimate <- function(text, max.length, every.word = 100,
+                              cache.obj = NULL) {
+    ## Get single entropy estimate from the text
+    ##
+    ## Args:
+    ##   text (character): Character vector containing the text to
+    ##   calculate the entropy on.
+    ##   max.length (numeric): The maximum length of the text to
+    ##   consider.
+    ##   every.word (numeric): Every how many word should it compute
+    ##   (reduces computation time).
+    ##   ...: Arguments passed from `converge`. `H.i.vec` stores the
+    ##   entropy estimates and `cache.obj` provides a HashMap-like
+    ##   environment to save previous results.
+    ##
+    ## Returns:
+    ##   numeric: The entropy estimate over the chunk of text
+    ##   considered.
+    H.i.vecs <- c()
+    if (is.null(cache.obj))
+        cache.obj <- new.env(TRUE, emptyenv())
+
+    for (i in seq(every.word, max.length, every.word)) {
+        ## keep track of how many subvectors match
+        matches <- 0
+        ## use memoized value if available
+        if (ExistsInCache(i, cache.obj)) {
+            matches <- matches + length(GetFromCache(i, cache.obj))
+        } else {
+            StoreInCache(i, c(), cache.obj)
+            for (l in 0:(i - 1)) {
+                ## use memoized value if available
+                if (l %in% GetFromCache(i, cache.obj)) {
+                    matches <- matches + 1
+                } else {
+                    if (IsSubstring(text[i:(i + l)],
+                                    text[1:(i - 1)])) {
+                        matches <- matches + 1
+                        ## save result for later
+                        StoreInCache(i, c(GetFromCache(i, cache.obj), l),
+                                     cache.obj)
+                    } else {
+                        break
+                    }
+                }
+            }
+            H.i.vecs <- c(H.i.vecs, log2(i) / (matches + 1))
+        }
+    }
+    return(H.i.vecs)
+}
+
+
 .Converge <- function(text, step.size, max.length, cache.obj, every.word,
                       verbose) {
     ## Get entropy estimates over variable sized chunks of text
@@ -25,10 +78,10 @@
         if (verbose)
             message(sprintf("%.2f%%: Setting size of corpus at %i words",
                             iter / (max.length / step.size) * 100, n))
-        est <- GetSingleEstimate(text       = text,
-                                 max.length = n,
-                                 every.word = every.word,
-                                 cache.obj  = cache.obj)
+        est <- .GetSingleEstimate(text       = text,
+                                  max.length = n,
+                                  every.word = every.word,
+                                  cache.obj  = cache.obj)
         H.i.vec <- c(H.i.vec, est)                  
         H.est <- sum(H.i.vec) / (round(n / every.word, digits = 0))
         result[[iter]] <- c(n, H.est)
