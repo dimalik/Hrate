@@ -11,5 +11,6 @@ Author: Christian Bentz [aut, cre],
         Dimitris Alikaniotis [aut, cre]
 Maintainer: Dimitris Alikaniotis <da352@cam.ac.uk>
 Description: Implements the LZ algorithms described in ...
-Depends: R (>= 3.1.0), ggplot2, scales
+Depends: R (>= 3.1.0)
+Suggests: ggplot2, scales
 License: MIT
