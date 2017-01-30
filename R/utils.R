@@ -15,18 +15,17 @@ readFile <- function(textFile, numtotal) scan(textFile,
                                               encoding="UTF-8",
                                               n=numtotal)
 
-IsSubstring <- function(subvec, fullvec) {
+IsSubstring <- function(subvec, fullstr) {
     ## Tests whether `subvec` is a proper substring of `fullvec`.
     ##
     ## Args:
-    ##   substr: A character vector of size less than `fullvec`.
+    ##   subvec: A character vector of size less than `fullvec`.
     ##   fullstr: A character vector.
     ##
     ## Returns:
-    ##   bool: `TRUE` is `subvec` is a proper substring of `fullvec`
+    ##   bool: `TRUE` is `subvec` is a proper substring of `fullstr`
     ## Transform to regex pattern
     substr  <- paste0('\\b', paste(subvec, collapse=' '), '\\b')
-    fullstr <- paste(fullvec, collapse = ' ')
     return (grepl(pattern = substr, x = fullstr))
 }
 

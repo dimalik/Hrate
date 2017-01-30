@@ -32,13 +32,15 @@
             matches <- matches + length(GetFromCache(i, cache.obj))
         } else {
             StoreInCache(i, c(), cache.obj)
+            ## keep the fullstr in a buffer so that we don't
+            ## repeatedly call paste
+            txtbuf <- paste(text[1:(i - 1)], collapse = " ")
             for (l in 0:(i - 1)) {
                 ## use memoized value if available
                 if (l %in% GetFromCache(i, cache.obj)) {
                     matches <- matches + 1
                 } else {
-                    if (IsSubstring(text[i:(i + l)],
-                                    text[1:(i - 1)])) {
+                    if (IsSubstring(text[i:(i + l)], txtbuf)) {
                         matches <- matches + 1
                         ## save result for later
                         StoreInCache(i, c(GetFromCache(i, cache.obj), l),
