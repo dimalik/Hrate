@@ -13,7 +13,6 @@ converge.estimate <- function(text, step.size, max.length, every.word = 10,
 get.estimate <- function(text, max.length = NULL, every.word = 10) {
     if (is.null(max.length))
         max.length <- length(text)
-    result <- sum(.GetSingleEstimate(text, max.length, every.word))
-    result <- result / (round(max.length / every.word, digits = 0))
-    return(result)
+    return(.GetEntropyRate(.GetSingleEstimate(text, max.length, every.word),
+                           max.length, every.word))
 }

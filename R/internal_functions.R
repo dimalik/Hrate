@@ -1,3 +1,7 @@
+.GetEntropyRate <- function(entropies, text.length, every.word) {
+    return(sum(entropies) / (text.length %/% every.word))
+}
+
 .GetSingleEstimate <- function(text, max.length, every.word = 100,
                               cache.obj = NULL) {
     ## Get single entropy estimate from the text
@@ -83,7 +87,7 @@
                                   every.word = every.word,
                                   cache.obj  = cache.obj)
         H.i.vec <- c(H.i.vec, est)                  
-        H.est <- sum(H.i.vec) / (round(n / every.word, digits = 0))
+        H.est <- .GetEntropyRate(H.i.vec, n, every.word)
         result[[iter]] <- c(n, H.est)
     }
     df <- data.frame(t(sapply(result, c)))
