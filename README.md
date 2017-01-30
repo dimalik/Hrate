@@ -25,12 +25,12 @@ install.packages("EntropyEstimator.tar.gz", repos=NULL, type="source")
 library(EntropyEstimator)
 
 ## load the provided demo corpus
-data(textfile)
+data(deuparl)
 
 ## get the convergence rate the parameters are documented in the help files
-## convergeEstimate returns and S4 object.
-convergence.rate <- convergeEstimate(text = textfile, step.size = 1000, max.length = 30000, every.word = 10,
-                                     downsampling.rate = 5)
+## converge.estimate returns and S4 object.
+convergence.rate <- converge.estimate(text = deuparl, step.size = 1000, max.length = 30000,
+                                      every.word = 10, downsampling.rate = 5)
                                      
 ## see the convergence rate and the associated SDs
 print(convergence.rate@convergence)
