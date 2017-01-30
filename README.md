@@ -36,6 +36,9 @@ convergence.rate <- converge.estimate(text = deuparl, step.size = 1000, max.leng
 print(convergence.rate@convergence)
 print(convergence.rate@convergence.criterion)
 
+## we also expose a get.estimate function to get a single estimate on a text
+estimate <- get.estimate(text = deuparl, every.word = 10, max.length = 50000)
+
 ## plot the results
 plot(convergence.rate)
 ```
