@@ -2,7 +2,7 @@ converge.estimate <- function(text, step.size, max.length = length(text),
                               every.word = 10, downsampling.rate = 5,
                               verbose = TRUE) {
     ce <- new("ConvergeEntropy", text = text, step.size = step.size,
-              max.length = max.length , every.word = every.word)
+              max.length = max.length, every.word = every.word)
     estimate <- Converge(ce, verbose = verbose)
     ce@convergence <- estimate
     criterion <- ConvergeCriterion(ce, downsampling.rate)

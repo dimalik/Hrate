@@ -124,8 +124,8 @@ setMethod(f          = "Converge",
           signature  = "ConvergeEntropy",
           definition = function(object, verbose) {
               return(.Converge(object@text, object@step.size,
-                               object@max.length, object@cache.obj,
-                               object@every.word, verbose))
+                               object@cache.obj, object@every.word,
+                               object@max.length, verbose))
           })
 
 setMethod(f          = "ConvergeCriterion",
