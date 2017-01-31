@@ -10,11 +10,12 @@ StoreInCache <- function(key, value, CacheEnv) {
     assign(key, value, envir = CacheEnv)
 }
 
-readFile <- function(textFile, numtotal) scan(textFile,
-                                              what="char", quote="", comment.char="",
-                                              encoding="UTF-8",
-                                              n=numtotal)
-
+read.file <- function(text.file, max.length = length(text.file)) {
+    return(scan(text.file, what = "char", quote = "",
+                comment.char = "", encoding = "UTF-8",
+                sep = " ", n = max.length))
+}
+   
 IsSubstring <- function(subvec, fullstr) {
     ## Tests whether `subvec` is a proper substring of `fullvec`.
     ##

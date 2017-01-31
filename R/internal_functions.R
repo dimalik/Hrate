@@ -2,8 +2,8 @@
     return(sum(entropies) / (text.length %/% every.word))
 }
 
-.GetSingleEstimate <- function(text, max.length, every.word = 100,
-                              cache.obj = NULL) {
+.GetSingleEstimate <- function(text, max.length = length(text),
+                               every.word = 10, cache.obj = NULL) {
     ## Get single entropy estimate from the text
     ##
     ## Args:
@@ -57,8 +57,8 @@
 }
 
 
-.Converge <- function(text, step.size, max.length, cache.obj, every.word,
-                      verbose) {
+.Converge <- function(text, step.size, cache.obj, every.word,
+                      max.length = length(text), verbose = TRUE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
     ## Args:
