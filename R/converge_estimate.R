@@ -1,6 +1,9 @@
 converge.estimate <- function(text, step.size, max.length = length(text),
                               every.word = 10, downsampling.rate = 5,
-                              normalize = TRUE, verbose = TRUE) {
+                              lower = FALSE, normalize = TRUE,
+                              verbose = TRUE) {
+    if (lower)
+        text <- tolower(text)
     if (normalize)
         text <- as.character(as.numeric(as.factor(text)))
     ce <- new("ConvergeEntropy", text = text, step.size = step.size,
