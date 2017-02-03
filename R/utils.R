@@ -1,3 +1,11 @@
+NormalizeText <- function(text, lower = FALSE, normalize = TRUE) {
+    if (lower)
+        text <- tolower(text)
+    if (normalize)
+        text <- as.character(as.numeric(as.factor(text)))
+    return(text)
+}
+
 StoreInCache <- function(key, value, CacheEnv) {
     ## Store a value in cache.
     ##
@@ -10,10 +18,12 @@ StoreInCache <- function(key, value, CacheEnv) {
     assign(key, value, envir = CacheEnv)
 }
 
-read.file <- function(text.file, max.length = length(text.file)) {
-    return(scan(text.file, what = "char", quote = "",
+read.file <- function(text.file, max.length = length(text.file),
+                      lower = FALSE, normalize = FALSE) {
+   text <- scan(text.file, what = "char", quote = "",
                 comment.char = "", encoding = "UTF-8",
-                sep = " ", n = max.length))
+                sep = " ", n = max.length)
+   return(NormalizeText(text, lower = lower, normalize = normalize))
 }
    
 IsSubstring <- function(subvec, fullstr) {
