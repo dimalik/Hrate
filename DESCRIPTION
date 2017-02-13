@@ -1,8 +1,8 @@
 Package: Hrate
 Type: Package
 Title: Implements LZ estimator for texts.
-Version: 0.1
-Date: 2017-01-28
+Version: 0.2
+Date: 2017-02-13
 Authors@R: c(person("Christian", "Bentz", role = c("aut", "cre"),
                     email = "chris@christianbentz.de"),
              person("Dimitrios", "Alikaniotis", role = c("aut", "cre"),
@@ -10,7 +10,10 @@ Authors@R: c(person("Christian", "Bentz", role = c("aut", "cre"),
 Author: Christian Bentz [aut, cre],
         Dimitris Alikaniotis [aut, cre]
 Maintainer: Dimitris Alikaniotis <da352@cam.ac.uk>
-Description: Implements the increasing window entropy estimator (i.e., LZ78) for text corpora. Concretely, the algorithm finds the entropy rate of a corpus by calculating the entropy in increasingly larger blocks of text.
+Description: Implements the increasing window entropy estimator (i.e.,
+             LZ78) for text corpora. Concretely, the algorithm finds the entropy
+             rate of a corpus by calculating the entropy in increasingly larger
+             blocks of text.
 Depends: R (>= 3.1.0)
 Imports: ggplot2, scales
 License: MIT
