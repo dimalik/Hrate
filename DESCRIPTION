@@ -10,7 +10,7 @@ Authors@R: c(person("Christian", "Bentz", role = c("aut", "cre"),
 Author: Christian Bentz [aut, cre],
         Dimitris Alikaniotis [aut, cre]
 Maintainer: Dimitris Alikaniotis <da352@cam.ac.uk>
-Description: Implements the LZ algorithms described in ...
+Description: Implements the increasing window entropy estimator (i.e., LZ78) for text corpora. Concretely, the algorithm finds the entropy rate of a corpus by calculating the entropy in increasingly larger blocks of text.
 Depends: R (>= 3.1.0)
 Suggests: ggplot2, scales
 License: MIT
