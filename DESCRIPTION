@@ -1,4 +1,4 @@
-Package: EntropyEstimator
+Package: Hrate
 Type: Package
 Title: Implements LZ estimator for texts.
 Version: 0.1
