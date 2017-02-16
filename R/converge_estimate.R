@@ -30,10 +30,10 @@
 #' ce <- converge.estimate(deuparl, step.size = 1000, max.length = 10000, every.word = 10, downsampling.rate = 5, verbose = TRUE)
 converge.estimate <- function(text, step.size, max.length = length(text),
                               every.word = 10, downsampling.rate = 5,
-                              verbose = TRUE) {
+                              verbose = TRUE, random = FALSE) {
     ce <- new("ConvergeEntropy", text = text, step.size = step.size,
               max.length = max.length, every.word = every.word)
-    estimate <- Converge(ce, verbose = verbose)
+    estimate <- Converge(ce, verbose = verbose, random = random)
     ce@convergence <- estimate
     criterion <- ConvergeCriterion(ce, downsampling.rate)
     ce@convergence.criterion <- criterion
@@ -62,9 +62,9 @@ converge.estimate <- function(text, step.size, max.length = length(text),
 #' est <- get.estimate(deuparl, max.length = 10000)
 
 get.estimate <- function(text, max.length = length(text),
-                         every.word = 10) {
+                         every.word = 10, random = FALSE) {
     if (is.null(max.length))
         max.length <- length(text)
     return(.GetEntropyRate(.GetSingleEstimate(text, max.length, every.word),
-                           max.length, every.word))
+                           max.length, every.word, random = random))
 }

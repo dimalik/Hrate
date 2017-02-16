@@ -62,7 +62,7 @@ setGeneric(name = "setEveryWord",
            })
 
 setGeneric(name = "Converge",
-           def  = function(object, verbose) {
+           def  = function(object, verbose, random) {
                standardGeneric("Converge")
            })
 
@@ -122,10 +122,10 @@ setMethod(f          = "setEveryWord",
 
 setMethod(f          = "Converge",
           signature  = "ConvergeEntropy",
-          definition = function(object, verbose) {
+          definition = function(object, verbose, random) {
               return(.Converge(object@text, object@step.size,
                                object@cache.obj, object@every.word,
-                               object@max.length, verbose))
+                               object@max.length, verbose, random))
           })
 
 setMethod(f          = "ConvergeCriterion",
