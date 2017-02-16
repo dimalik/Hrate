@@ -65,7 +65,8 @@
 
 
 .Converge <- function(text, step.size, cache.obj, every.word,
-                      max.length = length(text), verbose = TRUE) {
+                      max.length = length(text), verbose = TRUE,
+                      random = FALSE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
     ## Args:
@@ -94,7 +95,8 @@
         est <- .GetSingleEstimate(text       = text,
                                   max.length = n,
                                   every.word = every.word,
-                                  cache.obj  = cache.obj)
+                                  cache.obj  = cache.obj,
+                                  random     = random)
         H.i.vec <- c(H.i.vec, est)                  
         H.est <- .GetEntropyRate(H.i.vec, n, every.word)
         result[[iter]] <- c(n, H.est)
