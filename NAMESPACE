@@ -1,3 +1,5 @@
+import(ggplot2)
+import(scales)
 export("converge.estimate",
        "get.estimate",
        "plot.convergence",
