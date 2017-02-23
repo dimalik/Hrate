@@ -125,8 +125,7 @@
         SD <- sapply(corpus.size,
                      function(i) {
                          print (i)
-                         print (x[x$Corpus.Size > i, ])
-                         sd(x[x$Corpus.Size > i & x$Corpus.Size < i+rate, ]$Entropy)
+                         print (sd(x[x$Corpus.Size > i & x$Corpus.Size < (i+rate), "Entropy"]))
                          
                      })
     }
