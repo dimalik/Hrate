@@ -1,4 +1,4 @@
-# Entropy Estimator
+# Hrate
 
 # Introduction
 

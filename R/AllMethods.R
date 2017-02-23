@@ -62,7 +62,7 @@ setGeneric(name = "setEveryWord",
            })
 
 setGeneric(name = "Converge",
-           def  = function(object, verbose) {
+           def  = function(object, verbose, random) {
                standardGeneric("Converge")
            })
 
