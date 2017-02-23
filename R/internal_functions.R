@@ -98,7 +98,7 @@
 }
 
 
-.ConvergeCriterion <- function(x, downsampling.rate = 2) {
+.ConvergeCriterion <- function(x, method = "downsample", rate = NULL) {
     ## Get SDs of the downsampled entropy estimates
     ##
     ## Args:
@@ -108,10 +108,18 @@
     ##
     ## Returns:
     ##   data.frame: The SDs over different chunks of text
-    nGroups <- nrow(x) / downsampling.rate
-    eachGroup <- nrow(x) / nGroups
-    x$group <- rep(1:nGroups, each = eachGroup)
-    SD <- aggregate(Entropy ~ group, data=x, sd)$Entropy
-    corpus.size <- aggregate(Corpus.Size ~ group, data=x, max)$Corpus.Size
+    if (method == "downsample") {
+        nGroups <- nrow(x) / rate
+        eachGroup <- nrow(x) / nGroups
+        x$group <- rep(1:nGroups, each = eachGroup)
+        SD <- aggregate(Entropy ~ group, data=x, sd)$Entropy
+        corpus.size <- aggregate(Corpus.Size ~ group, data=x, max)$Corpus.Size
+    } else {
+        first.sample <- min(x$Corpus.Size)
+        last.sample <- max(x$Corpus.Size) - rate
+        corpus.size <- seq(first.sample, last.sample, first.sample)
+        SD <- sapply(corpus.size,
+                     function(i) sd(x[x$Corpus.Size > i & x$Corpus.Size < i+rate, ]$Entropy))
+    }
     return(data.frame(Corpus.Size = corpus.size, SD = SD))
 }
