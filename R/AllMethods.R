@@ -123,7 +123,6 @@ setMethod(f          = "setEveryWord",
 setMethod(f          = "Converge",
           signature  = "ConvergeEntropy",
           definition = function(object, verbose) {
-              print (object@max.length)
               return(.Converge(text = object@text, step.size = object@step.size,
                                cache.obj = object@cache.obj, every.word = object@every.word,
                                max.length = object@max.length, verbose = verbose))
