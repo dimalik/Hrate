@@ -121,6 +121,7 @@
         print (first.sample)
         print (last.sample)
         print (corpus.size)
+        print (x)
         SD <- sapply(corpus.size,
                      function(i) sd(x[x$Corpus.Size > i & x$Corpus.Size < i+rate, ]$Entropy))
     }
