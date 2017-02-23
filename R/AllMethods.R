@@ -47,7 +47,7 @@ setGeneric(name = "setStepSize",
            })
 
 setGeneric(name = "ConvergeCriterion",
-           def  = function(object, downsampling.rate) {
+           def  = function(object, method, rate) {
                standardGeneric("ConvergeCriterion")
            })
 
@@ -122,14 +122,15 @@ setMethod(f          = "setEveryWord",
 
 setMethod(f          = "Converge",
           signature  = "ConvergeEntropy",
-          definition = function(object, verbose, random) {
-              return(.Converge(object@text, object@step.size,
-                               object@cache.obj, object@every.word,
-                               object@max.length, verbose, random))
+          definition = function(object, verbose) {
+              print (object@max.length)
+              return(.Converge(text = object@text, step.size = object@step.size,
+                               cache.obj = object@cache.obj, every.word = object@every.word,
+                               max.length = object@max.length, verbose = verbose))
           })
 
 setMethod(f          = "ConvergeCriterion",
           signature  = "ConvergeEntropy",
-          definition = function(object, downsampling.rate) {
-              return(.ConvergeCriterion(object@convergence, downsampling.rate))
+          definition = function(object, method, rate) {
+              return(.ConvergeCriterion(object@convergence, method, rate))
           })

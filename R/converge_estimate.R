@@ -29,13 +29,13 @@
 #' data(deuparl)
 #' ce <- converge.estimate(deuparl, step.size = 1000, max.length = 10000, every.word = 10, downsampling.rate = 5, verbose = TRUE)
 converge.estimate <- function(text, step.size, max.length = length(text),
-                              every.word = 10, downsampling.rate = 5,
-                              verbose = TRUE, random = FALSE) {
+                              every.word = 10, method = "downsample", rate = 5,
+                              verbose = TRUE) {
     ce <- new("ConvergeEntropy", text = text, step.size = step.size,
               max.length = max.length, every.word = every.word)
-    estimate <- Converge(ce, verbose = verbose, random = random)
+    estimate <- Converge(ce, verbose = verbose)
     ce@convergence <- estimate
-    criterion <- ConvergeCriterion(ce, downsampling.rate)
+    criterion <- ConvergeCriterion(ce, method, rate)
     ce@convergence.criterion <- criterion
     ce@min.criterion <- criterion[which.min(criterion$SD), "Corpus.Size"]
     return(ce)

@@ -16,7 +16,6 @@
 #' @examples
 #' txt <- c("This", "is", "a", "Sentence", "containing", "UPPERCASE", "lowercase", "and", "sy.mb'ols")
 #' txt.norm <- NormalizeText(txt, lower = TRUE, normalize = TRUE)
-
 NormalizeText <- function(text, lower = FALSE, normalize = TRUE) {
     if (lower)
         text <- tolower(text)
