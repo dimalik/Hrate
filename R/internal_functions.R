@@ -118,6 +118,9 @@
         first.sample <- min(x$Corpus.Size)
         last.sample <- max(x$Corpus.Size) - rate
         corpus.size <- seq(first.sample, last.sample, first.sample)
+        print (first.sample)
+        print (last.sample)
+        print (corpus.size)
         SD <- sapply(corpus.size,
                      function(i) sd(x[x$Corpus.Size > i & x$Corpus.Size < i+rate, ]$Entropy))
     }
