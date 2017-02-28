@@ -5,7 +5,7 @@ export("converge.estimate",
        "plot.convergence",
        "plot.criterion",
        "read.file",
-       "NormalizeText")
+       "PreprocessText")
 exportMethods(
     "Converge",
     "ConvergeCriterion",
