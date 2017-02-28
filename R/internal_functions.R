@@ -5,10 +5,7 @@
 .GetSingleEstimate <- function(text,
                                max.length = length(text),
                                every.word = 10,
-                               cache.obj =
-                                   new.env(TRUE, emptyenv()),
-                               random =
-                                   FALSE) {
+                               cache.obj  = NULL) {
     ## Get single entropy estimate from the text
     ##
     ## Args:
@@ -26,12 +23,9 @@
     ##   numeric: The entropy estimate over the chunk of text
     ##   considered.
     H.i.vecs <- c()
-    if (!random)
-        sequence <- seq(every.word, max.length, every.word)
-    else
-        sequence <- sample(2:max.length, (max.length / every.word),
-                           replace = TRUE)
-    for (i in sequence) {
+    if (is.null(cache.obj))
+        cache.obj <- new.env(TRUE, emptyenv())
+    for (i in seq(every.word, max.length, every.word)) {
         ## keep track of how many subvectors match
         matches <- 0
         ## use memoized value if available
@@ -65,8 +59,7 @@
 
 
 .Converge <- function(text, step.size, cache.obj, every.word,
-                      max.length = length(text), verbose = TRUE,
-                      random = FALSE) {
+                      max.length = length(text), verbose = TRUE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
     ## Args:
@@ -95,8 +88,7 @@
         est <- .GetSingleEstimate(text       = text,
                                   max.length = n,
                                   every.word = every.word,
-                                  cache.obj  = cache.obj,
-                                  random     = random)
+                                  cache.obj  = cache.obj)
         H.i.vec <- c(H.i.vec, est)                  
         H.est <- .GetEntropyRate(H.i.vec, n, every.word)
         result[[iter]] <- c(n, H.est)

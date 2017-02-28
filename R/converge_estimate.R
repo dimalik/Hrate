@@ -62,9 +62,9 @@ converge.estimate <- function(text, step.size, max.length = length(text),
 #' est <- get.estimate(deuparl, max.length = 10000)
 
 get.estimate <- function(text, max.length = length(text),
-                         every.word = 10, random = FALSE) {
+                         every.word = 10) {
     if (is.null(max.length))
         max.length <- length(text)
     return(.GetEntropyRate(.GetSingleEstimate(text, max.length, every.word),
-                           max.length, every.word, random = random))
+                           max.length, every.word))
 }
