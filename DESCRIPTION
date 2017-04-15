@@ -14,3 +14,4 @@ Description: Implements the LZ algorithms described in ...
 Depends: R (>= 3.1.0)
 Suggests: ggplot2, scales
 License: MIT
+RoxygenNote: 6.0.1
