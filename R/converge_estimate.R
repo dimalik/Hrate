@@ -8,12 +8,15 @@
 #'     that internally this uses a regular expression for the matching
 #'     so in non-ASCII texts it might be unstable. In those cases it
 #'     is recommended to \code{normalize} the text beforehand.
-#' @param step.size A numeric scalar. Every how many words should an
-#'     estimate be computed? Warning: this can increase the
-#'     computation time.
-#' @param max.length A numeric scalar. How many elements from
+#' @param step.size A numeric scalar. Pre-specifies the step sizes at which 
+#' entropy rates are computed. Warning: smaller values increase the
+#' computation time.
+#' @param max.length A numeric scalar. How many tokens of the
 #'     \code{text} should be read? Defaults to the length of the text.
-#' @param every.word A numeric scalar.
+#' @param every.word A numeric scalar. "every.word=1" specifies that each 
+#' word token should be used for estimation. To speed up processing only 
+#' every 2nd, 3rd, xth word token could be used. Hence, every.word can be 
+#' assigned any integer between 1 and the step size.
 #' @param downsampling.rate A numeric scalar.
 #' @param verbose Boolean. Whether or not to display percentage done.
 #'
