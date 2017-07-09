@@ -15,7 +15,7 @@
     ##   consider.
     ##   every.word (numeric): Every how many word should it compute
     ##   (reduces computation time).
-    ##   ...: Arguments passed from `converge`. `H.i.vec` stores the
+    ##   ...: Arguments passed from `stabilize`. `H.i.vec` stores the
     ##   entropy estimates and `cache.obj` provides a HashMap-like
     ##   environment to save previous results.
     ##
@@ -58,7 +58,7 @@
 }
 
 
-.Converge <- function(text, step.size, cache.obj, every.word,
+.Stabilize <- function(text, step.size, cache.obj, every.word,
                       max.length = length(text), verbose = TRUE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
@@ -99,7 +99,7 @@
 }
 
 
-.ConvergeCriterion <- function(x, method = "downsample", rate = NULL) {
+.StabilizeCriterion <- function(x, method = "downsample", rate = NULL) {
     ## Get SDs of the downsampled entropy estimates
     ##
     ## Args:

@@ -1,28 +1,34 @@
-ConvergeEntropy <- setClass(
-    ## ConvergeEntropy class
-    ##
-    ## This is mainly a delegating class encapsulating the logic of
-    ## the simulations. Concretely, it estimates the _entropy rate_
-    ## for different text sizes by repeatedly calling
-    ## GetSingleEstimate then uses those estimate to find the
-    ## convergence point. It also holds helper printing and plotting
-    ## methods.
-    ##
-    ## Args:
-    ##   text (character): A character vector to use as corpus
-    ##   step.size (numeric): The size of each chunk of corpus to consider
-    ##   max.length (numeric): The total size of the text to consider
-    ##   every.word (numeric): Every how many words should it compute
-    ##      the entropy rate (reduces computation time)
-    "ConvergeEntropy",
+#' StabilizeEntropy class
+#'
+#'
+#' This is mainly a delegating class encapsulating the logic of the
+#' simulations. Concretely, it estimates the _entropy rate_ for
+#' different text sizes by repeatedly calling GetSingleEstimate then
+#' uses those estimate to find the stabilization point. It also holds
+#' helper printing and plotting methods.
+#'
+#' @slot text (character): A character vector to use as corpus
+#' @slot step.size (numeric): The size of each chunk of corpus to
+#'     consider
+#' @slot max.length (numeric): The total size of the text to consider
+#' @slot every.word (numeric): Every how many words should it compute
+#'     the entropy rate (reduces computation time)
+#' 
+#' @name mynewclass-class
+#' @rdname mynewclass-class
+#' @export
+#' @author Dimitris Alikaniotis
+
+StabilizeEntropy <- setClass(
+    "StabilizeEntropy",
     slots = c(
         text                  = "character",
         step.size             = "numeric",
         max.length            = "numeric",
         every.word            = "numeric",
         cache.obj             = "environment",
-        convergence           = "data.frame",
-        convergence.criterion = "data.frame",
+        stabilization           = "data.frame",
+        stabilization.criterion = "data.frame",
         min.criterion         = "numeric"
     ),
 
