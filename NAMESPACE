@@ -1,3 +1,5 @@
+importFrom("methods", "new", "validObject")
+importFrom("stats", "aggregate", "sd")
 import(ggplot2)
 import(scales)
 export("stabilize.estimate",
@@ -7,7 +9,8 @@ export("stabilize.estimate",
        "read.file",
        "PreprocessText",
        "get.stabilization",
-       "get.criterion")
+       "get.criterion",
+       "IsSubstring")
 exportMethods(
     "Stabilize",
     "StabilizeCriterion",

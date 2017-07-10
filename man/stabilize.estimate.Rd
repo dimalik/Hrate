@@ -40,7 +40,7 @@ needed to get a stable entropy rate.
 }
 \examples{
 data(deuparl)
-ce <- stabilize.estimate(deuparl, step.size = 1000, max.length = 10000, every.word = 10, downsampling.rate = 5, verbose = TRUE)
+ce <- stabilize.estimate(deuparl, step.size = 1000, max.length = 10000, every.word = 10, method = "downsample", rate = 5, verbose = TRUE)
 }
 \seealso{
 \code{\link{Stabilize}}, \code{\link{StabilizeCriterion}}

@@ -45,7 +45,12 @@ PreprocessText <- function(text, lower = FALSE, bow = TRUE) {
 #'     ID tag (useful for non-ASCII texts)
 #' @param ... arguments to be passed to \code{scan}.
 #' @examples
-#' text <- read.file("mycorpus.txt", max.length = 1000, lower = True, bow = TRUE)
+#' ## initialize a temp buffer
+#' tmp.file <- file()
+#' cat("this is a very nice and short sentence", file = tmp.file)
+#' text <- read.file(tmp.file, max.length = 1000, lower = TRUE, bow = TRUE)
+#' close(tmp.file)
+#' 
 #' @seealso \code{\link{scan}}, \code{\link{PreprocessText}}
 read.file <- function(text.file, max.length = -1,
                       lower = FALSE, bow = FALSE, ...) {
