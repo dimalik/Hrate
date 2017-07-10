@@ -65,3 +65,5 @@ plot(convergence.rate)
 3. Bentz, C.; Alikaniotis D.; Cysouw, M.; Ferrer-i-Cancho, R. The entropy of words - learnability and expressivity across more than 1000 languages. _Entropy_ 2017.
 
 4. Koehn, P. Europarl: A parallel corpus for statistical machine translation. In Proceedings of the tenth Machine Translation Summit, Phuket, Thailand, 12-16 September 2005; Volume 5, pp. 79–86.
+
+[![Travis-CI Build Status](https://travis-ci.org/dimalik/Hrate.svg?branch=master)](https://travis-ci.org/dimalik/Hrate)
