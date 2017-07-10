@@ -71,6 +71,11 @@ setGeneric(name = "get.stabilization",
                standardGeneric("get.stabilization")
            })
 
+setGeneric(name = "get.criterion",
+           def  = function(object) {
+               standardGeneric("get.criterion")
+           })
+
 ## 2. Init method
 
 setMethod(f          = "initialize",
@@ -143,4 +148,10 @@ setMethod(f          = "get.stabilization",
           signature  = "StabilizeEntropy",
           definition = function(object) {
               return(object@stabilization)
+          })
+
+setMethod(f          = "get.criterion",
+          signature  = "StabilizeEntropy",
+          definition = function(object) {
+              return(object@stabilization.criterion)
           })
