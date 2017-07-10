@@ -6,7 +6,8 @@ export("stabilize.estimate",
        "plot.criterion",
        "read.file",
        "PreprocessText",
-       "get.stabilization")
+       "get.stabilization",
+       "get.criterion")
 exportMethods(
     "Stabilize",
     "StabilizeCriterion",
