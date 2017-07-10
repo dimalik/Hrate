@@ -14,8 +14,8 @@
 #' @slot every.word (numeric): Every how many words should it compute
 #'     the entropy rate (reduces computation time)
 #' 
-#' @name mynewclass-class
-#' @rdname mynewclass-class
+#' @name stabilizeentropy
+#' @rdname stabilizeentropy
 #' @export
 #' @author Dimitris Alikaniotis
 

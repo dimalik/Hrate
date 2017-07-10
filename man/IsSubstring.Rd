@@ -2,10 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{IsSubstring}
 \alias{IsSubstring}
-\title{Tests whether `subvec` is a proper substring of `fullvec`.}
+\title{Test whether \code{subvec} is a proper substring of \code{fullvec}.}
 \usage{
 IsSubstring(subvec, fullstr)
 }
+\arguments{
+\item{subvec}{A character vector. Its size should be less than or equal to \code{length(fullvec)}.}
+
+\item{fullstr}{A character vector. The entire string.}
+}
+\value{
+bool. TRUE if subvec \code{\\subset} fullstr, FALSE otherwise.
+}
 \description{
-Tests whether `subvec` is a proper substring of `fullvec`.
+Test whether \code{subvec} is a proper substring of \code{fullvec}.
+}
+\examples{
+IsSubstring(c("this", "is", "a"), "this is a sentence")  # true
+IsSubstring(c("tthis", "is", "a"), "this is a sentence") # false
+}
+\seealso{
+\code{\link{grepl}}
 }
