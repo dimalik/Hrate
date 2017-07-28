@@ -42,7 +42,7 @@ deuparl[1:10]
 
 ## get the stabilization points via stabilize.estimate()
 ## "step.size" is an argument specifying step sizes (in number of tokens) at which entropy rates are calculated. "max.length" specifies the maximum number of tokens to be included. "every.word=1" specifies that each word token should be used for estimation. To speed up processing only every 2nd, 3rd, xth word token could be used. Hence, every.word can be assigned any integer between 1 and the step size. "rate" gives the downsampling rate to get SDs over a given number of entropy rate estimations (see Section 4.2 in [3]). converge.estimate returns a S4 object. 
-stabilization.rate <- stabilize.estimate(text = deuparl, step.size = 1000, max.length = 50000, every.word = 10, method="downsample",rate = 5)
+stabilization.rate <- stabilize.estimate(text = deuparl, step.size = 1000, max.length = 50000, every.word = 10, method="downsample", rate = 5, reverse = TRUE)
                                      
 ## output the convergence rate and the associated SDs
 print(get.stabilization(stabilization.rate))
