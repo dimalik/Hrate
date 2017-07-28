@@ -28,10 +28,10 @@
 #' @seealso \code{\link{Stabilize}}, \code{\link{StabilizeCriterion}}
 stabilize.estimate <- function(text, step.size, max.length = length(text),
                               every.word = 10, method = "downsample", rate = 5,
-                              verbose = TRUE) {
+                              verbose = TRUE, reverse = FALSE) {
     ce <- new("StabilizeEntropy", text = text, step.size = step.size,
               max.length = max.length, every.word = every.word)
-    estimate <- Stabilize(ce, verbose = verbose)
+    estimate <- Stabilize(ce, verbose = verbose, reverse = reverse)
     ce@stabilization <- estimate
     criterion <- StabilizeCriterion(ce, method, rate)
     ce@stabilization.criterion <- criterion

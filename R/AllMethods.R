@@ -62,7 +62,7 @@ setGeneric(name = "setEveryWord",
            })
 
 setGeneric(name = "Stabilize",
-           def  = function(object, verbose, random) {
+           def  = function(object, verbose, random, reverse) {
                standardGeneric("Stabilize")
            })
 
@@ -132,10 +132,11 @@ setMethod(f          = "setEveryWord",
 
 setMethod(f          = "Stabilize",
           signature  = "StabilizeEntropy",
-          definition = function(object, verbose) {
+          definition = function(object, verbose, reverse) {
               return(.Stabilize(text = object@text, step.size = object@step.size,
                                cache.obj = object@cache.obj, every.word = object@every.word,
-                               max.length = object@max.length, verbose = verbose))
+                               max.length = object@max.length, verbose = verbose,
+                               reverse = reverse))
           })
 
 setMethod(f          = "StabilizeCriterion",

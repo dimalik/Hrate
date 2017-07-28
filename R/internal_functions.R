@@ -70,7 +70,8 @@
 
 
 .Stabilize <- function(text, step.size, cache.obj, every.word,
-                      max.length = length(text), verbose = TRUE) {
+                       max.length = length(text), verbose = TRUE,
+                       reverse = FALSE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
     ## Args:
@@ -91,6 +92,8 @@
     H.i.vec <- c()
     result <- list()
     iter <- 0
+    if (reverse)
+        text <- rev(text)
     for (n in seq(step.size, max.length, step.size)) {
         iter <- iter + 1
         if (verbose)
