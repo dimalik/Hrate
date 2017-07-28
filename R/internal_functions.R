@@ -1,3 +1,14 @@
+#' Normalize the Entropy rate
+#'
+#' Normalizes the entropy rate estimates by summing them then dividing
+#' the number of samples it has seen (text.length / every.word) (see
+#' eqn. 9 in Bentz et al., 2017).
+#'
+#' @param entropies A numeric vector. Entropy rates at different match-lengths.
+#' @param text.length A numeric scalar. The overall number of tokens.
+#' @param every.word A number scalar. Every how many words are we calculating samples.
+#' @return A scalar
+#' @seealso \code{\link{get.estimate}}
 .GetEntropyRate <- function(entropies, text.length, every.word) {
     return(sum(entropies) / (text.length %/% every.word))
 }
@@ -15,7 +26,7 @@
     ##   consider.
     ##   every.word (numeric): Every how many word should it compute
     ##   (reduces computation time).
-    ##   ...: Arguments passed from `converge`. `H.i.vec` stores the
+    ##   ...: Arguments passed from `stabilize`. `H.i.vec` stores the
     ##   entropy estimates and `cache.obj` provides a HashMap-like
     ##   environment to save previous results.
     ##
@@ -58,7 +69,7 @@
 }
 
 
-.Converge <- function(text, step.size, cache.obj, every.word,
+.Stabilize <- function(text, step.size, cache.obj, every.word,
                       max.length = length(text), verbose = TRUE) {
     ## Get entropy estimates over variable sized chunks of text
     ##
@@ -99,7 +110,7 @@
 }
 
 
-.ConvergeCriterion <- function(x, method = "downsample", rate = NULL) {
+.StabilizeCriterion <- function(x, method = "downsample", rate = NULL) {
     ## Get SDs of the downsampled entropy estimates
     ##
     ## Args:

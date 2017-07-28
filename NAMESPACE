@@ -1,15 +1,20 @@
+importFrom("methods", "new", "validObject")
+importFrom("stats", "aggregate", "sd")
 import(ggplot2)
 import(scales)
-export("converge.estimate",
+export("stabilize.estimate",
        "get.estimate",
-       "plot.convergence",
+       "plot.stabilization",
        "plot.criterion",
        "read.file",
-       "PreprocessText")
+       "PreprocessText",
+       "get.stabilization",
+       "get.criterion",
+       "IsSubstring")
 exportMethods(
-    "Converge",
-    "ConvergeCriterion",
+    "Stabilize",
+    "StabilizeCriterion",
     "plot",
     "show"
 )
-exportClasses("ConvergeEntropy")
+exportClasses("StabilizeEntropy")

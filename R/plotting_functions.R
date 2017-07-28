@@ -1,5 +1,5 @@
-plot.convergence <- function(x) {
-    dat <- x@convergence
+plot.stabilization <- function(x) {
+    dat <- x@stabilization
     criterion <- x@min.criterion
     
     frame_conv <- ggplot(dat, aes(x = Corpus.Size, y = Entropy)) +
@@ -16,7 +16,7 @@ plot.convergence <- function(x) {
 }
 
 plot.criterion <- function(x) {
-    dat <- x@convergence.criterion
+    dat <- x@stabilization.criterion
     frame_sd <- ggplot(dat, aes(x = Corpus.Size, y = SD)) +
         geom_line(size = 0.5, alpha = 1) +
         xlab("Number of Word Tokens") +

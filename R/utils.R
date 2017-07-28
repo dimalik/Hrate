@@ -1,4 +1,4 @@
-#' Preprocess character vector
+#' Preprocess character vectors
 #'
 #' This provides some elementary preprocessing for a read character
 #' vector such as lowercasing and bag-of-words normalization. The bow
@@ -7,7 +7,8 @@
 #' or texts containing words with boundary symbols where the regular
 #' expression can fail.
 #'
-#' @param text
+#' @param text A character vector. This contains the text as returned
+#'     by \code{scan}.
 #' @param lower Boolean. Whether or not to lowercase all words.
 #' @param bow Boolean. Whether or not to substitute each word with an
 #'     ID tag (useful for non-ASCII texts)
@@ -16,7 +17,9 @@
 #'
 #' @examples
 #' txt <- c("This", "is", "a", "Sentence", "containing", "UPPERCASE", "lowercase", "and", "sy.mb'ols")
-#' txt.norm <- PreprocessText(txt, lower = TRUE, normalize = TRUE)
+#' txt.norm <- PreprocessText(txt, lower = TRUE, bow = TRUE)
+#' @seealso
+#' \code{\link{tolower}}
 PreprocessText <- function(text, lower = FALSE, bow = TRUE) {
     if (lower)
         text <- tolower(text)
@@ -27,9 +30,12 @@ PreprocessText <- function(text, lower = FALSE, bow = TRUE) {
 
 #' Read character vector from file
 #'
+#' \code{read.file} reads a file word by word and returns a unicode
+#' character vector.
+#'
 #' The \code{read.file} helper function reads a character vector from
 #' a file up to \code{max.length} calling \code{\link{PreprocessText}}
-#' if nececssary to carry out preprocessing steps.
+#' if nececssary to carry out any preprocessing steps.
 #'
 #' @param text.file A character vector. The path to the text file
 #' @param max.length A numeric. The maximum length of space delimited
@@ -37,24 +43,34 @@ PreprocessText <- function(text, lower = FALSE, bow = TRUE) {
 #' @param lower Boolean. Whether or not to lowercase all words.
 #' @param bow Boolean. Whether or not to substitute each word with an
 #'     ID tag (useful for non-ASCII texts)
-read.file <- function(text.file, max.length = length(text.file),
-                      lower = FALSE, bow = FALSE) {
+#' @param ... arguments to be passed to \code{scan}.
+#' @examples
+#' ## initialize a temp buffer
+#' tmp.file <- file()
+#' cat("this is a very nice and short sentence", file = tmp.file)
+#' text <- read.file(tmp.file, max.length = 1000, lower = TRUE, bow = TRUE)
+#' close(tmp.file)
+#' 
+#' @seealso \code{\link{scan}}, \code{\link{PreprocessText}}
+read.file <- function(text.file, max.length = -1,
+                      lower = FALSE, bow = FALSE, ...) {
    text <- scan(text.file, what = "char", quote = "",
                 comment.char = "", encoding = "UTF-8",
-                sep = " ", n = max.length)
+                sep = " ", n = max.length, quiet = TRUE, ...)
    return(PreprocessText(text, lower = lower, bow = bow))
 }
-   
+
+#' Test whether \code{subvec} is a proper substring of \code{fullvec}.
+#'
+#' @param subvec A character vector. Its size should be less than or equal to \code{length(fullvec)}.
+#' @param fullstr A character vector. The entire string.
+#'
+#' @return bool. TRUE if subvec \code{\\subset} fullstr, FALSE otherwise.
+#' @examples
+#' IsSubstring(c("this", "is", "a"), "this is a sentence")  # true
+#' IsSubstring(c("tthis", "is", "a"), "this is a sentence") # false
+#' @seealso \code{\link{grepl}}
 IsSubstring <- function(subvec, fullstr) {
-    #' Tests whether `subvec` is a proper substring of `fullvec`.
-    #'
-    ## Args:
-    ##   subvec: A character vector of size less than `fullvec`.
-    ##   fullstr: A character vector.
-    ##
-    ## Returns:
-    ##   bool: `TRUE` is `subvec` is a proper substring of `fullstr`
-    ## Transform to regex pattern
     substr  <- paste0('\\b', paste(subvec, collapse=' '), '\\b')
     return (grepl(pattern = substr, x = fullstr))
 }

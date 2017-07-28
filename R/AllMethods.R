@@ -2,11 +2,11 @@
 ## 1a. Overrides
 
 setMethod("show",
-         signature(object = "ConvergeEntropy"),
+         signature(object = "StabilizeEntropy"),
          function(object) {
              if (!length(object@min.criterion))
-                 warning("ConvergeEntropy object has not converged.")
-             cat("ConvergeEntropy object with parameters: \n")
+                 warning("StabilizeEntropy object has not stabilized.")
+             cat("StabilizeEntropy object with parameters: \n")
              cat(" step.size: ", object@step.size , "\n")
              cat("max.length: ", object@max.length, "\n")
              cat("every.word: ", object@every.word, "\n")
@@ -14,11 +14,11 @@ setMethod("show",
          )
 
 setMethod("summary",
-          signature(object = "ConvergeEntropy"),
+          signature(object = "StabilizeEntropy"),
           function(object) {
               if (!length(object@min.criterion))
-                  stop("ConvergeEntropy object has not converged.")
-              cat("ConvergeEntropy object with parameters: \n")
+                  stop("StabilizeEntropy object has not stabilized.")
+              cat("StabilizeEntropy object with parameters: \n")
               cat(" step.size: ", object@step.size , "\n")
               cat("max.length: ", object@max.length, "\n")
               cat("every.word: ", object@every.word, "\n")
@@ -30,9 +30,9 @@ setMethod("summary",
 ## don't really think this is needed
 setGeneric('plot')
 setMethod('plot',
-          signature(x='ConvergeEntropy', y='missing'),
+          signature(x='StabilizeEntropy', y='missing'),
           definition = function(x, y, ...) {
-              plot.convergence(x, ...)
+              plot.stabilization(x, ...)
           })
 
 ## 1b. Generic of internal functions
@@ -46,9 +46,9 @@ setGeneric(name = "setStepSize",
                standardGeneric("setStepSize")
            })
 
-setGeneric(name = "ConvergeCriterion",
+setGeneric(name = "StabilizeCriterion",
            def  = function(object, method, rate) {
-               standardGeneric("ConvergeCriterion")
+               standardGeneric("StabilizeCriterion")
            })
 
 setGeneric(name = "setMaxLength",
@@ -61,15 +61,25 @@ setGeneric(name = "setEveryWord",
                standardGeneric("setEveryWord")
            })
 
-setGeneric(name = "Converge",
+setGeneric(name = "Stabilize",
            def  = function(object, verbose, random) {
-               standardGeneric("Converge")
+               standardGeneric("Stabilize")
+           })
+
+setGeneric(name = "get.stabilization",
+           def  = function(object) {
+               standardGeneric("get.stabilization")
+           })
+
+setGeneric(name = "get.criterion",
+           def  = function(object) {
+               standardGeneric("get.criterion")
            })
 
 ## 2. Init method
 
 setMethod(f          = "initialize",
-          signature  = "ConvergeEntropy",
+          signature  = "StabilizeEntropy",
           definition = function(.Object, ..., text, step.size, max.length,
                                 every.word) {
               .Object@text       <- text
@@ -90,14 +100,14 @@ setMethod(f          = "initialize",
 ## 3. Custom methods
 
 setMethod(f          = "setText",
-          signature  = "ConvergeEntropy",
+          signature  = "StabilizeEntropy",
           definition = function(object, text) {
               object@text <- text
               if (validObject(object))
                   return(object)
           })
 setMethod(f          = "setStepSize",
-          signature  = "ConvergeEntropy",
+          signature  = "StabilizeEntropy",
           definition = function(object, step.size) {
               object@step.size <- step.size
               if (validObject(object))
@@ -105,7 +115,7 @@ setMethod(f          = "setStepSize",
           })
 
 setMethod(f          = "setMaxLength",
-          signature  = "ConvergeEntropy",
+          signature  = "StabilizeEntropy",
           definition = function(object, max.length) {
               object@max.length <- max.length
               if (validObject(object))
@@ -113,23 +123,35 @@ setMethod(f          = "setMaxLength",
           })
 
 setMethod(f          = "setEveryWord",
-          signature  = "ConvergeEntropy",
+          signature  = "StabilizeEntropy",
           definition = function(object, every.word) {
               object@every.word <- every.word
               if (validObject(object))
                   return(object)
           })
 
-setMethod(f          = "Converge",
-          signature  = "ConvergeEntropy",
+setMethod(f          = "Stabilize",
+          signature  = "StabilizeEntropy",
           definition = function(object, verbose) {
-              return(.Converge(text = object@text, step.size = object@step.size,
+              return(.Stabilize(text = object@text, step.size = object@step.size,
                                cache.obj = object@cache.obj, every.word = object@every.word,
                                max.length = object@max.length, verbose = verbose))
           })
 
-setMethod(f          = "ConvergeCriterion",
-          signature  = "ConvergeEntropy",
+setMethod(f          = "StabilizeCriterion",
+          signature  = "StabilizeEntropy",
           definition = function(object, method, rate) {
-              return(.ConvergeCriterion(object@convergence, method, rate))
+              return(.StabilizeCriterion(object@stabilization, method, rate))
+          })
+
+setMethod(f          = "get.stabilization",
+          signature  = "StabilizeEntropy",
+          definition = function(object) {
+              return(object@stabilization)
+          })
+
+setMethod(f          = "get.criterion",
+          signature  = "StabilizeEntropy",
+          definition = function(object) {
+              return(object@stabilization.criterion)
           })
