@@ -1,4 +1,4 @@
-plot.stabilization <- function(x) {
+plot.stabilization <- function(x, ...) {
     dat <- x@stabilization
     criterion <- x@min.criterion
     
@@ -15,7 +15,7 @@ plot.stabilization <- function(x) {
     frame_conv
 }
 
-plot.criterion <- function(x) {
+plot.criterion <- function(x, ...) {
     dat <- x@stabilization.criterion
     frame_sd <- ggplot(dat, aes(x = Corpus.Size, y = SD)) +
         geom_line(size = 0.5, alpha = 1) +

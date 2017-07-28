@@ -7,7 +7,8 @@
 #'     \code{\link{read.file}} to take care of preprocessing. Note
 #'     that internally this uses a regular expression for the matching
 #'     so in non-ASCII texts it might be unstable. In those cases it
-#'     is recommended to \code{\link{normalize}} the text beforehand.
+#'     is recommended to \code{\link{PreprocessText}} the text
+#'     beforehand.
 #' @param step.size A numeric scalar. Pre-specifies the step sizes at
 #'     which entropy rates are computed. Warning: smaller values
 #'     increase the computation time.
@@ -20,12 +21,13 @@
 #'     step size.
 #' @param downsampling.rate A numeric scalar.
 #' @param verbose Boolean. Whether or not to display progress.
-#' @return \code{stabilize.estimate} returns an object of class \code{\link{Stabilize}}.
+#' @return \code{stabilize.estimate} returns an object of class
+#'     \code{\link{StabilizeEntropy}}.
 #'
 #' @examples
 #' data(deuparl)
 #' ce <- stabilize.estimate(deuparl, step.size = 1000, max.length = 10000, every.word = 10, method = "downsample", rate = 5, verbose = TRUE)
-#' @seealso \code{\link{Stabilize}}, \code{\link{StabilizeCriterion}}
+#' @seealso \code{\link{StabilizeEntropy}}
 stabilize.estimate <- function(text, step.size, max.length = length(text),
                               every.word = 10, method = "downsample", rate = 5,
                               verbose = TRUE, reverse = FALSE) {
@@ -48,7 +50,8 @@ stabilize.estimate <- function(text, step.size, max.length = length(text),
 #'     \code{\link{read.file}} to take care of preprocessing. Note
 #'     that internally this uses a regular expression for the matching
 #'     so in non-ASCII texts it might be unstable. In those cases it
-#'     is recommended to \code{\link{normalize}} the text beforehand.
+#'     is recommended to \code{\link{PreprocessText}} the text
+#'     beforehand.
 #' @param max.length A numeric scalar. How many elements from
 #'     \code{text} should be read? Defaults to the length of the text.
 #' @param every.word A numeric scalar. "every.word=1" specifies that
