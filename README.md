@@ -36,6 +36,18 @@ library(devtools)
 install_github("dimalik/Hrate")
 ```
 
+    ## 
+    ## ── R CMD build ─────────────────────────────────────────────────────────────────
+    ##      checking for file ‘/tmp/Rtmp2okZzR/remotes247815a50103/dimalik-Hrate-b67b4bb/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/Rtmp2okZzR/remotes247815a50103/dimalik-Hrate-b67b4bb/DESCRIPTION’
+    ##   ─  preparing ‘Hrate’:
+    ##      checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+    ##   ─  checking for LF line-endings in source and make files and shell scripts
+    ##   ─  checking for empty or unneeded directories
+    ## ─  looking to see if a ‘data/datalist’ file should be added
+    ##   ─  building ‘Hrate_0.2.tar.gz’
+    ##      
+    ## 
+
 or from the tarball
 
 ``` r
@@ -146,7 +158,7 @@ entropy rate on the y-axis. The number of tokens associated with the
 minimum SD value is plotted as a dashed vertical line.
 
 ``` r
-print(plot(stabilization))
+plot(stabilization)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
@@ -192,6 +204,12 @@ print(get.stabilization(stabilization))
     ## 8           80 0.2036346
     ## 9           90 0.2256656
     ## 10         100 0.3364119
+
+``` r
+plot(stabilization)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 # References
 
