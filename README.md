@@ -146,10 +146,52 @@ entropy rate on the y-axis. The number of tokens associated with the
 minimum SD value is plotted as a dashed vertical line.
 
 ``` r
-plot(stabilization)
+print(plot(stabilization))
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+# Note
+
+For extremely repetitive sequences, the estimator converges slowly, and
+has an overestimation bias towards the end of the sequence, since $L_i$
+necessarily becomes smaller. For example, if we use a process of
+sequence generation which simply concatenates the same symbol, the
+theoretical entropy rate is zero, but the estimated entropy rate is
+$> 0$ for the generated sequences with finite number of tokens.
+
+``` r
+sequence <- rep("a", 100)
+print(sequence)
+```
+
+    ##   [1] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+    ##  [19] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+    ##  [37] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+    ##  [55] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+    ##  [73] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+    ##  [91] "a" "a" "a" "a" "a" "a" "a" "a" "a" "a"
+
+``` r
+stabilization <- stabilize.estimate(text = sequence, step.size = 10,  max.length = 100, 
+                                         every.word = 1, method = "downsample", rate = 5)
+```
+
+``` r
+print(get.stabilization(stabilization))
+```
+
+    ##    Corpus.Size   Entropy
+    ## 1           10 0.3883991
+    ## 2           20 0.3238034
+    ## 3           30 0.2773687
+    ## 4           40 0.2444312
+    ## 5           50 0.2198139
+    ## 6           60 0.2040362
+    ## 7           70 0.1986645
+    ## 8           80 0.2036346
+    ## 9           90 0.2256656
+    ## 10         100 0.3364119
 
 # References
 
